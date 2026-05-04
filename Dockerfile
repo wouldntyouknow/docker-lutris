@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM ghcr.io/linuxserver/baseimage-selkies:fedora44
 
-RUN dnf install -y \
+RUN dnf install -y dnf-plugins-core && \
+    dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-beta.s3.brave.com/brave-browser-beta.repo && \
+    dnf install -y \
         # Core: Lutris + Wine (both archs) + winetricks
         lutris \
         wine \
@@ -38,7 +40,9 @@ RUN dnf install -y \
         cairo-gobject \
         liberation-fonts \
         google-noto-sans-fonts \
-        google-noto-sans-cjk-fonts && \
+        google-noto-sans-cjk-fonts \
+        # Web browser
+        brave-origin-beta && \
     dnf clean all && \
     rm -rf /var/cache/dnf /tmp/* /var/tmp/*
 
