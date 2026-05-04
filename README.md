@@ -63,28 +63,3 @@ titles are fine; competitive multiplayer with kernel anti-cheat isn't.
 project keeps proposing to drop it. If you want a long-lived setup, consider
 testing Wine's WoW64 mode (`WINEARCH=wow64`) or be ready to revisit the base.
 
-## Optional: also install Steam
-
-Steam isn't in Fedora's main repos — it's in RPM Fusion (nonfree). If you
-want it, add this `RUN` to the Dockerfile *before* the existing `dnf install`:
-
-```dockerfile
-RUN dnf install -y \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-```
-
-Then add `steam` to the package list. Lutris will auto-detect it.
-
-## Quick sanity checks inside the running container
-
-Open a terminal (right-click desktop → Terminal):
-
-```bash
-wine --version          # should report a recent Wine
-vulkaninfo --summary    # should show your GPU under "GPU0"
-glxinfo | head          # OpenGL info, confirms DRI3 is wired up
-```
-
-If `vulkaninfo` doesn't see your GPU, your `/dev/dri` mapping or Nvidia
-runtime config is wrong — fix that before trying to install games.
