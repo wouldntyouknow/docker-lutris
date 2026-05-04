@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if [ ! -f "${HOME}/Desktop/net.lutris.Lutris.desktop" ]; then
+  cp /usr/share/applications/net.lutris.Lutris.desktop "${HOME}/Desktop/"
+fi
+
+touch "${HOME}/.config/panel-reload"
+gio mime application/x-terminal-emulator foot.desktop
+
+lutris
