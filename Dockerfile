@@ -1,6 +1,10 @@
 # syntax=docker/dockerfile:1
 FROM ghcr.io/linuxserver/baseimage-selkies:fedora44
 
+ENV TITLE=Lutris \
+    SELKIES_DESKTOP=true \
+    NO_FULL=true
+
 RUN dnf install -y dnf-plugins-core && \
     dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-beta.s3.brave.com/brave-browser-beta.repo && \
     dnf install -y \
@@ -44,7 +48,11 @@ RUN dnf install -y dnf-plugins-core && \
         # Web browser
         brave-origin-beta && \
     dnf clean all && \
-    rm -rf /var/cache/dnf /tmp/* /var/tmp/*
+    rm -rf \
+        /var/cache/dnf \
+        /tmp/* \
+        /var/tmp/* \
+        /usr/share/applications/com.brave.Origin.beta.desktop
 
 # Defaults: autostart, openbox menu, anything else under root/
 COPY /root /

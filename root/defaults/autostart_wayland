@@ -1,10 +1,16 @@
 #! /bin/bash
 
+# Drop launcher icons on the desktop on first run.
+mkdir -p "${HOME}/Desktop"
 if [ ! -f "${HOME}/Desktop/net.lutris.Lutris.desktop" ]; then
-  cp /usr/share/applications/net.lutris.Lutris.desktop "${HOME}/Desktop/"
+  cp /usr/share/applications/net.lutris.Lutris.desktop "${HOME}/Desktop/" 2>/dev/null || true
+fi
+if [ ! -f "${HOME}/Desktop/brave-origin-beta.desktop" ]; then
+  cp /usr/share/applications/brave-origin-beta.desktop "${HOME}/Desktop/" 2>/dev/null || true
 fi
 
+# Tell the labwc panel to (re)load and pick up the shortcuts.
 touch "${HOME}/.config/panel-reload"
-gio mime application/x-terminal-emulator foot.desktop
 
-lutris
+# Default terminal handler for the Wayland session.
+gio mime application/x-terminal-emulator foot.desktop
