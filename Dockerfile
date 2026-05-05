@@ -6,12 +6,13 @@ ENV TITLE=Lutris \
     NO_FULL=true
 
 RUN dnf install -y dnf-plugins-core && \
+    rpm --import https://dl.winehq.org/wine-builds/winehq.key && \
+    dnf config-manager addrepo --from-repofile=https://dl.winehq.org/wine-builds/fedora/44/winehq.repo && \
     dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-beta.s3.brave.com/brave-browser-beta.repo && \
     dnf install -y \
-        # Core: Lutris + Wine (both archs) + winetricks
+        # Core: Lutris + WineHQ staging (pulls 64- and 32-bit) + winetricks
         lutris \
-        wine \
-        wine.i686 \
+        winehq-staging \
         winetricks \
         # Vulkan stack, 64- and 32-bit (essential for modern gaming, DXVK,
         # vkd3d-proton — Lutris downloads pinned DXVK/vkd3d builds per-prefix)
@@ -59,6 +60,17 @@ RUN dnf install -y dnf-plugins-core && \
         /tmp/* \
         /var/tmp/* \
         /usr/share/applications/com.brave.Origin.beta.desktop
+
+# WineGUI: pull the latest RPM from the upstream GitHub releases.
+# Pinned to whatever "latest" resolves to at build time — the GHCR image
+# tags (latest, main-<sha>) make older versions retrievable if needed.
+RUN WINEGUI_VERSION=$(curl -fsSL "https://api.github.com/repos/winegui/WineGUI/releases/latest" \
+        | awk -F '"' '/tag_name/ {print $4; exit}') && \
+    curl -fsSL -o /tmp/winegui.rpm \
+        "https://github.com/winegui/WineGUI/releases/download/${WINEGUI_VERSION}/WineGUI-${WINEGUI_VERSION}.rpm" && \
+    dnf install -y /tmp/winegui.rpm && \
+    dnf clean all && \
+    rm -rf /tmp/winegui.rpm /var/cache/dnf
 
 # Defaults: autostart, openbox menu, anything else under root/
 COPY /root /
