@@ -15,16 +15,27 @@ accessible from any web browser.
         └── menu.xml        # right-click menu inside the desktop
 ```
 
-## Build & run
+## Pull & run
 
 ```bash
-docker compose build
+docker compose pull
 docker compose up -d
 ```
 
 Then open **https://localhost:3001** (note: HTTPS, not HTTP — the cert is
 self-signed, accept the warning). Default credentials are `abc` / `changeme`
 unless you edit them in `docker-compose.yml`.
+
+### Build locally (for development)
+
+If you've cloned the repo and want to build from source rather than pull the
+published image, drop `build: .` into the `lutris` service in
+`docker-compose.yml` and run:
+
+```bash
+docker compose build
+docker compose up -d
+```
 
 ## GPU acceleration
 

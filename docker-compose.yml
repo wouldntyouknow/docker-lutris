@@ -1,7 +1,6 @@
 services:
   lutris:
-    build: .
-    image: lutris-selkies:latest
+    image: ghcr.io/wouldntyouknow/docker-lutris:latest
     privileged: true
     container_name: lutris
     security_opt:
