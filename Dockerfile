@@ -37,6 +37,12 @@ RUN dnf install -y dnf-plugins-core && \
         unzip \
         curl \
         xdg-utils \
+        # File managers: Thunar (single-pane GUI), Double Commander
+        # (Total Commander-style dual-pane GUI), Midnight Commander
+        # (Norton/Far Commander-style TUI)
+        Thunar \
+        doublecmd-gtk \
+        mc \
         # Fonts: Liberation for Western, Noto CJK so launchers and games
         # don't render Asian text as boxes
         python3-cairo \
