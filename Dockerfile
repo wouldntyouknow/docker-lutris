@@ -3,6 +3,7 @@ FROM ghcr.io/linuxserver/baseimage-selkies:fedora44
 
 ENV TITLE=Lutris \
     SELKIES_DESKTOP=true \
+    PIXELFLUX_WAYLAND=true \
     NO_FULL=true
 
 RUN dnf install -y dnf-plugins-core && \
