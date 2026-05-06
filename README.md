@@ -33,8 +33,11 @@ in the environment section, with keeping the default username (abc):
 
 Or with defining a new username:
 
-      - DRINODE=/dev/dri/renderD128
-      - DRI_NODE=/dev/dri/renderD128
+```yaml
+    environment:
+      - CUSTOM_USER=yourusername
+      - PASSWORD=yourpassword
+```
 
 
 This will add a super basic auth - do not expose this to the internet
