@@ -79,7 +79,13 @@ RUN curl -fsSL -o /usr/local/bin/winetricks \
         "https://github.com/winegui/WineGUI/releases/download/${WINEGUI_VERSION}/WineGUI-${WINEGUI_VERSION}.rpm" && \
     dnf install -y /tmp/winegui.rpm && \
     dnf clean all && \
-    rm -rf /tmp/winegui.rpm /var/cache/dnf
+    rm -rf /tmp/winegui.rpm /var/cache/dnf && \
+    curl -o \
+        /usr/share/selkies/www/favicon.ico \
+        https://raw.githubusercontent.com/wouldntyouknow/docker-lutris/refs/heads/main/icon/fedora.ico && \
+    curl -o \
+        /usr/share/selkies/www/icon.png \
+        https://raw.githubusercontent.com/wouldntyouknow/docker-lutris/refs/heads/main/icon/fedora.png
 
 # Defaults: autostart, openbox menu, anything else under root/
 COPY /root /
