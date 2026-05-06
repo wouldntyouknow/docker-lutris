@@ -8,7 +8,6 @@ accessible from any web browser, using modern streaming technology (think Sunshi
 | Branch | What it builds | Image tag |
 |---|---|---|
 | `main` *(default)* | Lutris + WineHQ **staging** Wine + WineGUI + Brave Origin Beta + Thunar / Double Commander / Midnight Commander | `ghcr.io/wouldntyouknow/docker-lutris:latest` |
-| `wine-stable` | Lutris + Fedora **stable** Wine, no WineGUI, otherwise identical | `ghcr.io/wouldntyouknow/docker-lutris:wine-stable` |
 
 Each commit on `main` is also published as an immutable
 `ghcr.io/wouldntyouknow/docker-lutris:main-<short-sha>` tag, useful if
@@ -22,17 +21,6 @@ Download and start it:
 ```bash
 docker compose up -d
 ```
-
-To use the `wine-stable` build instead, edit `docker-compose.yml` and
-change the `image:` line:
-
-```yaml
-services:
-  lutris:
-    image: ghcr.io/wouldntyouknow/docker-lutris:wine-stable
-```
-
-…then `docker compose up -d` again.
 
 Once running, open **https://host-ip:3001** (note: HTTPS, not HTTP —
 the cert is self-signed, accept the warning). You can add basic auth
@@ -62,14 +50,14 @@ the service block:
 ```bash
 git clone https://github.com/wouldntyouknow/docker-lutris.git
 cd docker-lutris
-git checkout main          # or: git checkout wine-stable
+git checkout main
 # in docker-compose.yml, add 'build: .' under the lutris service
 docker compose build
 docker compose up -d
 ```
 
 The local build will retag whatever you set `image:` to — so leaving
-`image: ghcr.io/wouldntyouknow/docker-lutris:latest` (or `:wine-stable`)
+`image: ghcr.io/wouldntyouknow/docker-lutris:latest`
 is fine; compose just builds locally and uses that tag instead of pulling.
 
 ## GPU acceleration
