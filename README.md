@@ -7,7 +7,7 @@ accessible from any web browser, using modern streaming technology (think Sunshi
 
 | Branch | What it builds | Image tag |
 |---|---|---|
-| `main` *(default)* | Lutris + WineHQ **staging** Wine + WineGUI + Brave Origin Beta + Thunar / Double Commander / Midnight Commander | `ghcr.io/wouldntyouknow/docker-lutris:latest` |
+| `main` *(default)* | Lutris + WineHQ **staging** Wine + WineGUI + Brave Origin + Thunar / Double Commander / Midnight Commander | `ghcr.io/wouldntyouknow/docker-lutris:latest` |
 
 Each commit on `main` is also published as an immutable
 `ghcr.io/wouldntyouknow/docker-lutris:main-<short-sha>` tag, useful if
