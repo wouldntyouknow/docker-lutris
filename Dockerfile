@@ -9,7 +9,7 @@ ENV TITLE=Lutris \
 RUN dnf install -y dnf-plugins-core && \
     rpm --import https://dl.winehq.org/wine-builds/winehq.key && \
     dnf config-manager addrepo --from-repofile=https://dl.winehq.org/wine-builds/fedora/44/winehq.repo && \
-    dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-beta.s3.brave.com/brave-browser-beta.repo && \
+    dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
     dnf install -y --allowerasing --exclude=winetricks \
         # Core: Lutris + WineHQ staging (pulls 64- and 32-bit).
         # Fedora's winetricks pulls wine-common, which conflicts with
@@ -56,13 +56,13 @@ RUN dnf install -y dnf-plugins-core && \
         google-noto-sans-fonts \
         google-noto-sans-cjk-fonts \
         # Web browser
-        brave-origin-beta && \
+        brave-origin && \
     dnf clean all && \
     rm -rf \
         /var/cache/dnf \
         /tmp/* \
         /var/tmp/* \
-        /usr/share/applications/com.brave.Origin.beta.desktop
+        /usr/share/applications/com.brave.Origin.desktop
 
 # Winetricks: install upstream as a bash script. Fedora's winetricks
 # package was excluded above because it requires wine-common, which
@@ -79,13 +79,13 @@ RUN curl -fsSL -o /usr/local/bin/winetricks \
         "https://github.com/winegui/WineGUI/releases/download/${WINEGUI_VERSION}/WineGUI-${WINEGUI_VERSION}.rpm" && \
     dnf install -y /tmp/winegui.rpm && \
     dnf clean all && \
-    rm -rf /tmp/winegui.rpm /var/cache/dnf && \
-    curl -o \
-        /usr/share/selkies/www/favicon.ico \
-        https://raw.githubusercontent.com/wouldntyouknow/docker-lutris/refs/heads/main/icon/fedora.ico && \
-    curl -o \
-        /usr/share/selkies/www/icon.png \
-        https://raw.githubusercontent.com/wouldntyouknow/docker-lutris/refs/heads/main/icon/fedora.png
+    rm -rf /tmp/winegui.rpm /var/cache/dnf
+
+# Branding: Fedora favicon/icon for the Selkies web UI, taken from the build
+# context so branches and forks ship their own icons and the build stays
+# reproducible offline.
+COPY icon/fedora.ico /usr/share/selkies/www/favicon.ico
+COPY icon/fedora.png /usr/share/selkies/www/icon.png
 
 # Defaults: autostart, openbox menu, anything else under root/
 COPY /root /
