@@ -5,8 +5,8 @@ mkdir -p "${HOME}/Desktop"
 if [ ! -f "${HOME}/Desktop/net.lutris.Lutris.desktop" ]; then
   cp /usr/share/applications/net.lutris.Lutris.desktop "${HOME}/Desktop/" 2>/dev/null || true
 fi
-if [ ! -f "${HOME}/Desktop/brave-origin-beta.desktop" ]; then
-  cp /usr/share/applications/brave-origin-beta.desktop "${HOME}/Desktop/" 2>/dev/null || true
+if [ ! -f "${HOME}/Desktop/brave-origin.desktop" ]; then
+  cp /usr/share/applications/brave-origin.desktop "${HOME}/Desktop/" 2>/dev/null || true
 fi
 if [ ! -f "${HOME}/Desktop/winegui.desktop" ]; then
   cp /usr/share/applications/winegui.desktop "${HOME}/Desktop/" 2>/dev/null || true
